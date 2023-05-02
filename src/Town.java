@@ -9,11 +9,10 @@ public class Town {
     public Town(int cost) {
         value = cost;
         sizeInMiles = 1;
-
     }
 
-    public String getStats() {
-        stats = "Cost: " + costs + "\nSize: " + sizeInMiles +
+    public void getStats() {
+        stats = "Cost: " + costs + "\nSize: " + sizeInMiles;
     }
 
     public int buyLand(int miles) {
@@ -22,5 +21,4 @@ public class Town {
         value+=cost;
         return cost;
     }
-
 }

@@ -49,12 +49,20 @@ public class Owner {
     }
 
     public int gamble() {
+        int bal = balance;
         int random = (int) (Math.random()*2) + 1;
-        if (random == 1)
+        if (random == 1) {
+            balance*=1.5;
+            return bal*=1.5;
+        } else {
+            balance*=0.5;
+            return bal*=0.5;
+        }
     }
 
+
     public String buyLand(int miles) {
-        balance-=town.buyLand(miles);
+        balance-=town.expandLand(miles);
         return "You have bought " + miles + " miles of land.";
     }
 
