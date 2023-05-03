@@ -62,7 +62,7 @@ public class Owner {
 
 
     public String buyLand(int miles) {
-        balance-=town.expandLand(miles);
+        balance-=town.buyLand(miles);
         return "You have bought " + miles + " miles of land.";
     }
 

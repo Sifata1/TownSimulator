@@ -11,8 +11,9 @@ public class Town {
         sizeInMiles = 1;
     }
 
-    public void getStats() {
-        stats = "Cost: " + costs + "\nSize: " + sizeInMiles;
+    public String getStats() {
+        stats = "Value: " + value + "Cost: " + costs + "\nSize: " + sizeInMiles;
+        return stats;
     }
 
     public int buyLand(int miles) {
