@@ -1,12 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class TownGUI {
+public class LoadingScreen {
     JFrame frame;//Creating object of JFrame
     JLabel text=new JLabel("Town Simulator");
     JProgressBar progressBar=new JProgressBar();
     JLabel message=new JLabel();
-    TownGUI()//Creating constructor of the class
+    LoadingScreen()//Creating constructor of the class
     {
         createGUI();
         addText();
