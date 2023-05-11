@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Owner {
     private int balance;
     private String name;
@@ -18,53 +15,96 @@ public class Owner {
         town = new Town(0);
     }
 
+
     public String work() {
-        if (employed == false) return "You don't have a job.";
-        else {
             if (workCount > 7) {
                 return "Take a break from working";
             } else {
-                int n =(int) (Math.random()*13) + 1;
-                if (n == 13) {
-                    employed = false;
-                    return "You got fired for stealing your boss' children.";
-                }
-                balance += n*wage;
+                int n = (int) (Math.random() * 13) + 1;
+                balance += n * wage;
                 workCount++;
-                return "You worked for " + n + " hours and earned $" + (n*wage) + ".";
+                return "You worked for " + n + " hours and earned $" + (n * wage) + ".";
             }
-        }
     }
 
-    public String job() {
-        String[] jobs = new String[] {"Teacher", "Uber Driver", "Doctor", "Bathroom Cleaner", "Circus Clown"};
-        if (employed == false) {
-            int n =(int) (Math.random()*5) + 1;
-            int w = (int) (Math.random()*100) + 1;
-            wage = w;
-            return "You are now employed as a " + jobs[n] + " with a salary of $" + w + ".";
-        } else {
-            return "You already have a job.";
-        }
+    public int getBalance() {
+        return balance;
     }
 
-    public int gamble() {
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isEmployed() {
+        return employed;
+    }
+
+    public void setEmployed(boolean employed) {
+        this.employed = employed;
+    }
+
+    public int getWage() {
+        return wage;
+    }
+
+    public void setWage(int wage) {
+        this.wage = wage;
+    }
+
+    public int getWorkCount() {
+        return workCount;
+    }
+
+    public void setWorkCount(int workCount) {
+        this.workCount = workCount;
+    }
+
+    public Town getTown() {
+        return town;
+    }
+
+    public void setTown(Town town) {
+        this.town = town;
+    }
+
+    public int gamble(int amount) {
         int bal = balance;
+        if (amount > balance) {
+            return -1; // return -1 to indicate that the user does not have enough balance to gamble
+        }
         int random = (int) (Math.random()*2) + 1;
         if (random == 1) {
-            balance*=1.5;
-            return bal*=1.5;
+            balance += amount;
+            return bal + amount;
         } else {
-            balance*=0.5;
-            return bal*=0.5;
+            balance -= amount;
+            return bal - amount;
         }
     }
 
 
     public String buyLand(int miles) {
-        balance-=town.buyLand(miles);
+        int cost = miles * 10000;
+        if (balance < cost) {
+            return "You do not have enough balance to buy " + miles + " miles of land.";
+        }
+        balance -= cost;
+        town.buyLand(miles);
         return "You have bought " + miles + " miles of land.";
     }
+
+    public String getStats() {
+        return "Name: " + name + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\nTown Stats:\n" + town.getStats();
+    }
+
 
 
 }

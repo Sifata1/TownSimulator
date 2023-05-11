@@ -1,22 +1,53 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class MainScreen {
-    JFrame frame;//Creating object of JFrame
+    private JFrame frame;
+    private JButton playButton;
+    private JButton quitButton;
 
-    MainScreen()//Creating constructor of the class
-    {
-        createGUI();
+    public MainScreen() {
+        frame = new JFrame("Welcome to the Game!");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(400, 300));
+        frame.setLayout(new BorderLayout());
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+
+        playButton = new JButton("Play");
+        quitButton = new JButton("Quit");
+
+        playButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = JOptionPane.showInputDialog(frame, "Enter your name:");
+                if (name != null && name.trim().length() > 0) {
+                    Owner owner = new Owner(name.trim());
+                    new TownScreen(owner);
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid name.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        quitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        buttonPanel.add(playButton);
+        buttonPanel.add(quitButton);
+
+        frame.add(buttonPanel, BorderLayout.CENTER);
+
+        frame.pack();
+        frame.setVisible(true);
     }
-    public void createGUI(){
-        frame=new JFrame();
-        frame.getContentPane().setLayout(null);//setting layout to null
-        frame.setUndecorated(true);//Turning off Title bar
-        frame.setSize(600,400);//Setting size
-        frame.setLocationRelativeTo(null);//Setting location to the center of screen
-        frame.getContentPane().setBackground(Color.white);//setting background color
-        frame.setVisible(true);//setting visibility
 
+    public static void main(String[] args) {
+        new MainScreen();
     }
 }
