@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TownScreen {
+public class GameScreen {
     private JFrame frame;
     private JButton workButton;
     private JButton gambleButton;
@@ -11,7 +11,7 @@ public class TownScreen {
     private JTextArea statsArea;
     private Owner owner;
 
-    public TownScreen(Owner owner) {
+    public GameScreen(Owner owner) {
         this.owner = owner;
         frame = new JFrame("Town");
 
@@ -70,7 +70,7 @@ public class TownScreen {
         returnToMainButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new OwnerGUI(owner);
+                new MainScreen();
             }
         });
 

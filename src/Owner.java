@@ -10,8 +10,8 @@ public class Owner {
     public Owner(String name) {
         this.name = name;
         balance = 1000;
-        employed = false;
-        wage = 0;
+        employed = true;
+        wage = 15;
         town = new Town(0);
     }
 
@@ -19,8 +19,15 @@ public class Owner {
     public String work() {
             if (workCount > 7) {
                 return "Take a break from working";
+            } else if (workCount == 6) {
+                int n = (int) (Math.random() * 5) + 1;
+                int oldWage = wage;
+                wage = wage * 2;
+                balance += n * wage;
+                workCount++;
+                return "You earned a raise! You now have an hourly wage of $" + wage + "You worked for " + n + " hours and earned $" + (n * wage) + ".";
             } else {
-                int n = (int) (Math.random() * 13) + 1;
+                int n = (int) (Math.random() * 5) + 1;
                 balance += n * wage;
                 workCount++;
                 return "You worked for " + n + " hours and earned $" + (n * wage) + ".";

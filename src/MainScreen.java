@@ -24,7 +24,7 @@ public class MainScreen {
                 String name = JOptionPane.showInputDialog(frame, "Enter your name:");
                 if (name != null && name.trim().length() > 0) {
                     Owner owner = new Owner(name.trim());
-                    new TownScreen(owner);
+                    new GameScreen(owner);
                     frame.dispose();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Please enter a valid name.", "Error", JOptionPane.ERROR_MESSAGE);
