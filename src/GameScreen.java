@@ -37,11 +37,16 @@ public class GameScreen {
                 if (input != null && !input.equals("")) {
                     try {
                         int amount = Integer.parseInt(input);
-                        int result = owner.gamble(amount);
-                        if (result == -1) {
+                        boolean result = owner.canGamble(amount);
+                        if (!result) {
                             JOptionPane.showMessageDialog(frame, "You do not have enough balance to gamble that amount.");
                         } else {
-                            JOptionPane.showMessageDialog(frame, "You " + (result > owner.getBalance() ? "lost" : "won") + " $" + Math.abs(result - owner.getBalance()) + ".");
+                            int gamble = owner.gamble(amount);
+                            if (gamble > 0) {
+                                JOptionPane.showMessageDialog(frame, "You won: $" + gamble);
+                            } else {
+                                JOptionPane.showMessageDialog(frame, "You lost: $" + Math.abs(gamble));
+                            }
                             updateStatsArea();
                         }
                     } catch (NumberFormatException ex) {
@@ -92,6 +97,8 @@ public class GameScreen {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
+
 
     private void updateStatsArea() {
         statsArea.setText(owner.getStats());

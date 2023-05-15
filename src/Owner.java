@@ -83,23 +83,27 @@ public class Owner {
     }
 
     public int gamble(int amount) {
-        int bal = balance;
-        if (amount > balance) {
-            return -1; // return -1 to indicate that the user does not have enough balance to gamble
-        }
         int random = (int) (Math.random()*2) + 1;
         if (random == 1) {
             balance += amount;
-            return bal + amount;
+            return amount;
         } else {
             balance -= amount;
-            return bal - amount;
+            return -1 * amount;
         }
+    }
+
+    public boolean canGamble(int amount) {
+        int bal = balance;
+        if (amount > balance) {
+            return false; // return -1 to indicate that the user does not have enough balance to gamble
+        }
+        return true;
     }
 
 
     public String buyLand(int miles) {
-        int cost = miles * 10000;
+        int cost = miles * 1000;
         if (balance < cost) {
             return "You do not have enough balance to buy " + miles + " miles of land.";
         }

@@ -18,7 +18,7 @@ public class Town {
 
     public int buyLand(int miles) {
         sizeInMiles+=miles;
-        int cost = miles * 10000;
+        int cost = miles * 1000;
         value+=cost;
         return cost;
     }

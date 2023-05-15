@@ -1,9 +1,13 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
-public class MainScreen {
+public class MainScreen extends JPanel {
     private JFrame frame;
+    private Image backgroundImage;
     private JButton playButton;
     private JButton quitButton;
 
@@ -12,6 +16,8 @@ public class MainScreen {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(400, 300));
         frame.setLayout(new BorderLayout());
+
+
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -45,9 +51,12 @@ public class MainScreen {
 
         frame.pack();
         frame.setVisible(true);
+
     }
 
-    public static void main(String[] args) {
+
+
+    public static void main(String[] args) throws IOException {
         new MainScreen();
     }
 }
