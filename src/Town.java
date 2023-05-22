@@ -22,4 +22,48 @@ public class Town {
         value+=cost;
         return cost;
     }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
+
+    public int getCosts() {
+        return costs;
+    }
+
+    public void setCosts(int costs) {
+        this.costs = costs;
+    }
+
+    public int getProfit() {
+        return profit;
+    }
+
+    public void setProfit(int profit) {
+        this.profit = profit;
+    }
+
+    public int getSizeInMiles() {
+        return sizeInMiles;
+    }
+
+    public void setSizeInMiles(int sizeInMiles) {
+        this.sizeInMiles = sizeInMiles;
+    }
+
+    public void setStats(String stats) {
+        this.stats = stats;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 }

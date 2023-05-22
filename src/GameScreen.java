@@ -6,10 +6,13 @@ public class GameScreen {
     private JFrame frame;
     private JButton workButton;
     private JButton gambleButton;
+    private JButton quitButton;
     private JButton buyLandButton;
+    private JButton resetButton;
     private JButton returnToMainButton;
     private JTextArea statsArea;
     private Owner owner;
+    private Town town;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
@@ -22,6 +25,8 @@ public class GameScreen {
         gambleButton = new JButton("Gamble");
         buyLandButton = new JButton("Buy Land");
         returnToMainButton = new JButton("Return to Main Screen");
+        quitButton = new JButton("Save and Quit");
+        resetButton = new JButton("Reset");
 
         workButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -72,6 +77,13 @@ public class GameScreen {
             }
         });
 
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         returnToMainButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
@@ -79,10 +91,23 @@ public class GameScreen {
             }
         });
 
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                owner.setBalance(1000);
+                owner.setWage(15);
+                owner.setEmployed(true);
+                town.setSizeInMiles(1);
+
+            }
+        });
+
         buttonPanel.add(workButton);
         buttonPanel.add(gambleButton);
         buttonPanel.add(buyLandButton);
         buttonPanel.add(returnToMainButton);
+        buttonPanel.add(resetButton);
+        buttonPanel.add(quitButton);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
