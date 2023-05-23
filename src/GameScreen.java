@@ -87,7 +87,7 @@ public class GameScreen {
         returnToMainButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new MainScreen();
+                new MainSc();
             }
         });
 

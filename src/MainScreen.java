@@ -12,9 +12,12 @@ public class MainScreen extends JPanel {
     private JButton quitButton;
 
     public MainScreen() {
+        ImageIcon menu = new ImageIcon("background.jpg");
+        JLabel label = new JLabel(menu);
+
         frame = new JFrame("Welcome to the Game!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 300));
+        frame.setPreferredSize(new Dimension(500, 400));
         frame.setLayout(new BorderLayout());
 
 
@@ -24,6 +27,9 @@ public class MainScreen extends JPanel {
 
         playButton = new JButton("Play");
         quitButton = new JButton("Quit");
+
+        playButton.setBounds(150, 175, 60, 30);
+        quitButton.setBounds(250, 175, 60, 30);
 
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

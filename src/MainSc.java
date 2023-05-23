@@ -1,36 +1,72 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class MainSc extends JFrame {
-    JButton playButton;
-    JButton quitButton;
+    private JButton playButton;
+    private JFrame frame;
+    private JButton quitButton;
+    private JLabel title;
 
-    MainSc() {
-        ImageIcon menu = new ImageIcon("13853-gradient.jpg");
+    public MainSc() {
+        title = new JLabel("Welcome to Town Simulator!");
+        title.setFont(new Font("Ariel",Font.BOLD,28));
+        title.setForeground(Color.white);
+
+        frame = new JFrame("Welcome to the Game!");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(500, 400));
+        frame.add(title);
+
+        ImageIcon menu = new ImageIcon("background.jpg");
         JLabel label = new JLabel(menu);
         JPanel label1 = new JPanel();
 
         Color darkBlue = new Color(8,40,94);
-
         label1.setBackground(darkBlue);
-        this.setPreferredSize(new Dimension(1000, 500));
 
-        playButton = new JButton();
-        quitButton = new JButton();
 
-        playButton.setBounds(300, 350, 60, 30);
-        quitButton.setBounds(400, 350, 60, 30);
+        playButton = new JButton("Play");
+        quitButton = new JButton("Quit");
 
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Welcome to Town Simulator!");
+        playButton.setBounds(150, 175, 60, 30);
+        quitButton.setBounds(250, 175, 60, 30);
 
-        this.add(playButton);
-        this.add(quitButton);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Welcome to Town Simulator!");
 
-        this.add(label);
-        this.getContentPane().add(label1);
-        this.pack();
-        this.setVisible(true);
+        playButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = JOptionPane.showInputDialog(frame, "Enter your name:");
+                if (name != null && name.trim().length() > 0) {
+                    Owner owner = new Owner(name.trim());
+                    new GameScreen(owner);
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid name.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        quitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+
+        frame.add(playButton);
+        frame.add(quitButton);
+
+        frame.getContentPane().add(label1);
+        frame.pack();
+        frame.setVisible(true);
     }
+
+
 }
