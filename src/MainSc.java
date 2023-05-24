@@ -25,6 +25,8 @@ public class MainSc extends JFrame {
         JLabel label = new JLabel(menu);
         JPanel label1 = new JPanel();
 
+
+
         Color darkBlue = new Color(8,40,94);
         label1.setBackground(darkBlue);
 
