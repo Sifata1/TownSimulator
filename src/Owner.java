@@ -5,6 +5,7 @@ public class Owner {
     private int wage;
     private int workCount;
     private Town town;
+    private int age;
 
 
     public Owner(String name) {
@@ -13,6 +14,7 @@ public class Owner {
         employed = true;
         wage = 15;
         town = new Town(0);
+        age = 0;
     }
 
 
@@ -37,6 +39,14 @@ public class Owner {
     public int getBalance() {
         return balance;
     }
+
+    public void progressYear() {
+        age++;
+        if (age >= 18) {
+
+        }
+    }
+
 
     public void setBalance(int balance) {
         this.balance = balance;

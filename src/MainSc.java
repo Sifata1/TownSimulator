@@ -2,73 +2,66 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 public class MainSc extends JFrame {
     private JButton playButton;
-    private JFrame frame;
     private JButton quitButton;
-    private JLabel title;
 
     public MainSc() {
-        title = new JLabel("Welcome to Town Simulator!");
-        title.setFont(new Font("Ariel",Font.BOLD,28));
-        title.setForeground(Color.white);
+        setTitle("Welcome to Town Simulator!");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(500, 400));
+        setLayout(new BorderLayout());
 
-        frame = new JFrame("Welcome to the Game!");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(500, 400));
-        frame.add(title);
+        JPanel titlePanel = new JPanel();
+        JLabel title = new JLabel("Welcome to Town Simulator!");
+        title.setFont(new Font("Arial", Font.BOLD, 28));
+        title.setForeground(Color.WHITE);
+        titlePanel.setBackground(new Color(8, 40, 94));
+        titlePanel.add(title);
 
-        ImageIcon menu = new ImageIcon("background.jpg");
-        JLabel label = new JLabel(menu);
-        JPanel label1 = new JPanel();
-
-
-
-        Color darkBlue = new Color(8,40,94);
-        label1.setBackground(darkBlue);
-
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(8, 40, 94));
 
         playButton = new JButton("Play");
-        quitButton = new JButton("Quit");
-
-        playButton.setBounds(150, 175, 60, 30);
-        quitButton.setBounds(250, 175, 60, 30);
-
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Welcome to Town Simulator!");
-
+        playButton.setPreferredSize(new Dimension(120, 40));
+        playButton.setFont(new Font("Arial", Font.BOLD, 16));
         playButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String name = JOptionPane.showInputDialog(frame, "Enter your name:");
+                String name = JOptionPane.showInputDialog(MainSc.this, "Enter your name:");
                 if (name != null && name.trim().length() > 0) {
                     Owner owner = new Owner(name.trim());
                     new GameScreen(owner);
-                    frame.dispose();
+                    dispose();
                 } else {
-                    JOptionPane.showMessageDialog(frame, "Please enter a valid name.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(MainSc.this, "Please enter a valid name.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
+        quitButton = new JButton("Quit");
+        quitButton.setPreferredSize(new Dimension(120, 40));
+        quitButton.setFont(new Font("Arial", Font.BOLD, 16));
         quitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
 
+        buttonPanel.add(playButton);
+        buttonPanel.add(quitButton);
 
-        frame.add(playButton);
-        frame.add(quitButton);
+        add(titlePanel, BorderLayout.NORTH);
+        add(buttonPanel, BorderLayout.SOUTH);
 
-        frame.getContentPane().add(label1);
-        frame.pack();
-        frame.setVisible(true);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new MainSc();
+        });
+    }
 }

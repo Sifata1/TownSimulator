@@ -6,27 +6,27 @@ public class GameScreen {
     private JFrame frame;
     private JButton workButton;
     private JButton gambleButton;
-    private JButton quitButton;
     private JButton buyLandButton;
-    private JButton resetButton;
     private JButton returnToMainButton;
     private JTextArea statsArea;
+    private JButton progressYearButton;
     private Owner owner;
     private Town town;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
         frame = new JFrame("Town");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(400, 300));
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 2));
+        buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         workButton = new JButton("Work");
         gambleButton = new JButton("Gamble");
         buyLandButton = new JButton("Buy Land");
         returnToMainButton = new JButton("Return to Main Screen");
-        quitButton = new JButton("Save and Quit");
-        resetButton = new JButton("Reset");
 
         workButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -77,13 +77,6 @@ public class GameScreen {
             }
         });
 
-        quitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
         returnToMainButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
@@ -91,28 +84,28 @@ public class GameScreen {
             }
         });
 
-        resetButton.addActionListener(new ActionListener() {
-            @Override
+        progressYearButton = new JButton("Progress Year");
+        progressYearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                owner.setBalance(1000);
-                owner.setWage(15);
-                owner.setEmployed(true);
-                town.setSizeInMiles(1);
-
+                owner.progressYear();
+                town.increasePopulation();
+                town.incrementDeathCount();
+                updateStatsArea();
             }
         });
+
+        buttonPanel.add(progressYearButton);
 
         buttonPanel.add(workButton);
         buttonPanel.add(gambleButton);
         buttonPanel.add(buyLandButton);
         buttonPanel.add(returnToMainButton);
-        buttonPanel.add(resetButton);
-        buttonPanel.add(quitButton);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         statsArea = new JTextArea(owner.getStats());
         statsArea.setEditable(false);
+        statsArea.setFont(new Font("Arial", Font.PLAIN, 14));
 
         JScrollPane scrollPane = new JScrollPane(statsArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -122,8 +115,6 @@ public class GameScreen {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
-
 
     private void updateStatsArea() {
         statsArea.setText(owner.getStats());
