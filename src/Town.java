@@ -23,18 +23,8 @@ public class Town {
     }
 
     public void increasePopulation() {
-        Random random = new Random();
-        int increase = random.nextInt(100) + 1; // Randomly increase population between 1 and 100
+        int increase = (int) ((Math.random()*200) + 55);
         population += increase;
-    }
-
-    public void decreasePopulation() {
-        Random random = new Random();
-        int decrease = random.nextInt(50) + 1; // Randomly decrease population between 1 and 50
-        population -= decrease;
-        if (population < 0) {
-            population = 0;
-        }
     }
 
     public void incrementDeathCount() {

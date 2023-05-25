@@ -6,6 +6,8 @@ public class Owner {
     private int workCount;
     private Town town;
     private int age;
+    private int year;
+
 
 
     public Owner(String name) {
@@ -14,7 +16,8 @@ public class Owner {
         employed = true;
         wage = 15;
         town = new Town(0);
-        age = 0;
+        age = 25;
+        year = 2000;
     }
 
 
@@ -42,9 +45,13 @@ public class Owner {
 
     public void progressYear() {
         age++;
-        if (age >= 18) {
+        year++;
+    }
 
-        }
+    public String die() {
+        int random =(int) ((Math.random()*70) + 55);
+        if (age == random) return "You unfortunately you died at the age of " + age + " .";
+        else return "";
     }
 
 
@@ -123,7 +130,7 @@ public class Owner {
     }
 
     public String getStats() {
-        return "Name: " + name + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\nTown Stats:\n" + town.getStats();
+        return "Year: " + year + "\n\nOwner Stats: \nName: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\n\nTown Stats:\n" + town.getStats();
     }
 
 

@@ -15,9 +15,10 @@ public class GameScreen {
 
     public GameScreen(Owner owner) {
         this.owner = owner;
+        town = new Town(1000);
         frame = new JFrame("Town");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 300));
+        frame.setPreferredSize(new Dimension(400, 400));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
