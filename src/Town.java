@@ -11,7 +11,7 @@ public class Town {
     private int deathCount;
 
     public Town(int cost) {
-        value = cost;
+        value = 1000;
         sizeInMiles = 1;
         population = 1000;
         deathCount = 0;
@@ -36,6 +36,13 @@ public class Town {
         sizeInMiles+=miles;
         int cost = miles * 1000;
         value+=cost;
+        return cost;
+    }
+
+    public int sellLand(int miles) {
+        sizeInMiles-=miles;
+        int cost = miles * 1000;
+        value-=cost;
         return cost;
     }
 

@@ -129,6 +129,16 @@ public class Owner {
         return "You have bought " + miles + " miles of land.";
     }
 
+    public String sellLand(int miles) {
+        if (miles > town.getSizeInMiles()) {
+            return "You do not have that amount of miles to sell.";
+        } else {
+            balance += miles * 1000;
+            town.sellLand(miles);
+            return "You have sold " + miles + " miles of land.";
+        }
+    }
+
     public String getStats() {
         return "Year: " + year + "\n\nOwner Stats: \nName: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\n\nTown Stats:\n" + town.getStats();
     }

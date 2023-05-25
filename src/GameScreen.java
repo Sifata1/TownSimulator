@@ -12,6 +12,7 @@ public class GameScreen {
     private JButton progressYearButton;
     private Owner owner;
     private Town town;
+    private JButton sellLandButton;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
@@ -28,6 +29,7 @@ public class GameScreen {
         gambleButton = new JButton("Gamble");
         buyLandButton = new JButton("Buy Land");
         returnToMainButton = new JButton("Return to Main Screen");
+        sellLandButton = new JButton("Sell Land");
 
         workButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -78,6 +80,24 @@ public class GameScreen {
             }
         });
 
+        sellLandButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = JOptionPane.showInputDialog(frame, "Enter number of miles to sell:");
+                if (input != null && !input.equals("")) {
+                    try {
+                        int miles = Integer.parseInt(input);
+                        String result = owner.sellLand(miles);
+                        JOptionPane.showMessageDialog(frame, result);
+                        updateStatsArea();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Invalid input.");
+                    }
+                }
+            }
+
+        });
+
         returnToMainButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
@@ -96,10 +116,10 @@ public class GameScreen {
         });
 
         buttonPanel.add(progressYearButton);
-
         buttonPanel.add(workButton);
         buttonPanel.add(gambleButton);
         buttonPanel.add(buyLandButton);
+        buttonPanel.add(sellLandButton);
         buttonPanel.add(returnToMainButton);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
