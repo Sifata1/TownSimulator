@@ -3,10 +3,11 @@ public class Owner {
     private String name;
     private boolean employed;
     private int wage;
-    private int workCount;
+    private int numTimesWorkedInOneYear;
     private Town town;
     private int age;
     private int year;
+    private int deathAge;
 
 
 
@@ -15,26 +16,20 @@ public class Owner {
         balance = 1000;
         employed = true;
         wage = 15;
-        town = new Town(0);
+        town = new Town(1000);
         age = 25;
         year = 2000;
+        deathAge = (int) ((Math.random()*70) + 30);
     }
 
 
     public String work() {
-            if (workCount > 7) {
-                return "Take a break from working";
-            } else if (workCount == 6) {
-                int n = (int) (Math.random() * 5) + 1;
-                int oldWage = wage;
-                wage = wage * 2;
-                balance += n * wage;
-                workCount++;
-                return "You earned a raise! You now have an hourly wage of $" + wage + "You worked for " + n + " hours and earned $" + (n * wage) + ".";
+            if (numTimesWorkedInOneYear > 4) {
+                return "Take a break from working!";
             } else {
                 int n = (int) (Math.random() * 5) + 1;
                 balance += n * wage;
-                workCount++;
+                numTimesWorkedInOneYear++;
                 return "You worked for " + n + " hours and earned $" + (n * wage) + ".";
             }
     }
@@ -46,12 +41,12 @@ public class Owner {
     public void progressYear() {
         age++;
         year++;
+        numTimesWorkedInOneYear = 0;
     }
 
-    public String die() {
-        int random =(int) ((Math.random()*70) + 55);
-        if (age == random) return "You unfortunately you died at the age of " + age + " .";
-        else return "";
+    public boolean die() {
+        if (age == deathAge) return true;
+        else return false;
     }
 
 
@@ -78,18 +73,15 @@ public class Owner {
     public int getWage() {
         return wage;
     }
+    public int getAge() {
+        return age;
+    }
 
     public void setWage(int wage) {
         this.wage = wage;
     }
 
-    public int getWorkCount() {
-        return workCount;
-    }
 
-    public void setWorkCount(int workCount) {
-        this.workCount = workCount;
-    }
 
     public Town getTown() {
         return town;

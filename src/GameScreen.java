@@ -11,12 +11,10 @@ public class GameScreen {
     private JTextArea statsArea;
     private JButton progressYearButton;
     private Owner owner;
-    private Town town;
     private JButton sellLandButton;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
-        town = new Town(1000);
         frame = new JFrame("Town");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(400, 400));
@@ -109,8 +107,12 @@ public class GameScreen {
         progressYearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 owner.progressYear();
-                town.increasePopulation();
-                town.incrementDeathCount();
+                if (owner.die()) {
+                    JOptionPane.showMessageDialog(frame, "You unfortunately died at the age of " + owner.getAge() + ".");
+                    System.exit(0);
+                }
+                owner.getTown().increasePopulation();
+                owner.getTown().incrementDeathCount();
                 updateStatsArea();
             }
         });
