@@ -12,12 +12,13 @@ public class GameScreen {
     private JButton progressYearButton;
     private Owner owner;
     private JButton sellLandButton;
+    private JButton townButton;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
         frame = new JFrame("Town");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(400, 400));
+        frame.setPreferredSize(new Dimension(725, 400));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
@@ -28,6 +29,7 @@ public class GameScreen {
         buyLandButton = new JButton("Buy Land");
         returnToMainButton = new JButton("Return to Main Screen");
         sellLandButton = new JButton("Sell Land");
+        townButton = new JButton("Town");
 
         workButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -103,6 +105,13 @@ public class GameScreen {
             }
         });
 
+        townButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TownGUI();
+            }
+        });
+
         progressYearButton = new JButton("Progress Year");
         progressYearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -123,6 +132,7 @@ public class GameScreen {
         buttonPanel.add(buyLandButton);
         buttonPanel.add(sellLandButton);
         buttonPanel.add(returnToMainButton);
+        buttonPanel.add(townButton);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
