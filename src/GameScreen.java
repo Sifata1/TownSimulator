@@ -174,8 +174,9 @@ public class GameScreen {
         progressYearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 owner.progressYear();
-                if (owner.die()) {
-                    JOptionPane.showMessageDialog(frame, "You unfortunately died at the age of " + owner.getAge() + ".");
+                if (owner.getAge() == owner.getDeathAge()) {
+                    String result = owner.die();
+                    JOptionPane.showMessageDialog(frame, result);
                     System.exit(0);
                 }
                 owner.getTown().increasePopulation();

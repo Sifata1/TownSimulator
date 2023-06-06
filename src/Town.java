@@ -7,7 +7,6 @@ public class Town implements Serializable {
     private int profit;
     private int sizeInMiles;
     private String stats;
-
     private int value;
     private int population;
     private int deathCount;

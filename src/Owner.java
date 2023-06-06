@@ -9,14 +9,7 @@ public class Owner implements Serializable {
     private Town town;
     private int age;
     private int year;
-
-    public int getYear() {
-        return year;
-    }
-
     private int deathAge;
-
-
 
     public Owner(String name) {
         this.name = name;
@@ -41,10 +34,6 @@ public class Owner implements Serializable {
         }
     }
 
-    public int getBalance() {
-        return balance;
-    }
-
     public void progressYear() {
         age++;
         year++;
@@ -53,9 +42,25 @@ public class Owner implements Serializable {
         town.setValue((int) (town.getValue() + increase));
     }
 
-    public boolean die() {
-        if (age == deathAge) return true;
-        else return false;
+    public int getDeathAge() {
+        return deathAge;
+    }
+
+    public String die() {
+        String[] causesOfDeath = {"a Heartattack", "a Stroke", "Cancer", "an Accident", "an Infection", "a Suicide", "Diabetes", "a Drowning", "an Overdose", "a Homicide"};
+        int randomIndex = (int) (Math.random() * causesOfDeath.length);
+        if (age == deathAge) {
+            return "You unfortunately died at the age of " + getAge() + " from " + causesOfDeath[randomIndex] + ".";
+        }
+        return null;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getBalance() {
+        return balance;
     }
 
 
