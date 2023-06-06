@@ -16,26 +16,76 @@ public class GameScreen {
     private JButton townButton;
     private JButton saveButton;
     private JButton loadButton;
+    private JLabel yearLabel;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
         frame = new JFrame("Town");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(725, 400));
+        frame.setPreferredSize(new Dimension(800, 600));
+        frame.getContentPane().setBackground(new Color(8, 40, 94));
+
+        // Year label
+        yearLabel = new JLabel("YEAR: " + owner.getYear());
+        yearLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        yearLabel.setForeground(Color.WHITE);
+        yearLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        frame.add(yearLabel, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        buttonPanel.setLayout(new GridLayout(3, 3, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        buttonPanel.setBackground(new Color(8, 40, 94));
 
-        workButton = new JButton("Work");
-        gambleButton = new JButton("Gamble");
-        buyLandButton = new JButton("Buy Land");
-        returnToMainButton = new JButton("Return to Main Screen");
-        sellLandButton = new JButton("Sell Land");
-        townButton = new JButton("Town");
-        saveButton = new JButton("Save");
-        loadButton = new JButton("Load");
+        workButton = createButton("Work", new Font("Arial", Font.BOLD, 18), Color.WHITE);
+        gambleButton = createButton("Gamble", new Font("Arial", Font.BOLD, 18), Color.WHITE);
+        buyLandButton = createButton("Buy Land", new Font("Arial", Font.BOLD, 18), Color.WHITE);
+        returnToMainButton = createButton("Return to Main Screen", new Font("Arial", Font.BOLD, 16), Color.WHITE);
+        sellLandButton = createButton("Sell Land", new Font("Arial", Font.BOLD, 18), Color.WHITE);
+        townButton = createButton("Town", new Font("Arial", Font.BOLD, 18), Color.WHITE);
+        saveButton = createButton("Save", new Font("Arial", Font.BOLD, 18), Color.WHITE);
+        loadButton = createButton("Load", new Font("Arial", Font.BOLD, 18), Color.WHITE);
+        progressYearButton = createButton("Progress Year", new Font("Arial", Font.BOLD, 18), Color.WHITE);
 
+        buttonPanel.add(progressYearButton);
+        buttonPanel.add(workButton);
+        buttonPanel.add(gambleButton);
+        buttonPanel.add(buyLandButton);
+        buttonPanel.add(sellLandButton);
+        buttonPanel.add(returnToMainButton);
+        buttonPanel.add(townButton);
+        buttonPanel.add(saveButton);
+        buttonPanel.add(loadButton);
+
+        frame.add(buttonPanel, BorderLayout.CENTER);
+
+        statsArea = new JTextArea(owner.getStats());
+        statsArea.setEditable(false);
+        statsArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        statsArea.setForeground(Color.WHITE);
+        statsArea.setBackground(new Color(8, 40, 94));
+
+        JScrollPane scrollPane = new JScrollPane(statsArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        frame.add(scrollPane, BorderLayout.SOUTH);
+
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        addListeners();
+    }
+
+    private JButton createButton(String text, Font font, Color foregroundColor) {
+        JButton button = new JButton(text);
+        button.setFont(font);
+        button.setForeground(foregroundColor);
+        button.setBackground(new Color(8, 40, 94));
+        button.setFocusPainted(false);
+        return button;
+    }
+
+    private void addListeners() {
         workButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String result = owner.work();
@@ -109,8 +159,6 @@ public class GameScreen {
             }
         });
 
-
-        progressYearButton = new JButton("Progress Year");
         progressYearButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 owner.progressYear();
@@ -136,33 +184,11 @@ public class GameScreen {
                 updateStatsArea();
             }
         });
-
-        buttonPanel.add(progressYearButton);
-        buttonPanel.add(workButton);
-        buttonPanel.add(gambleButton);
-        buttonPanel.add(buyLandButton);
-        buttonPanel.add(sellLandButton);
-        buttonPanel.add(saveButton);
-        buttonPanel.add(loadButton);
-        buttonPanel.add(returnToMainButton);
-
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        statsArea = new JTextArea(owner.getStats());
-        statsArea.setEditable(false);
-        statsArea.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JScrollPane scrollPane = new JScrollPane(statsArea);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        frame.add(scrollPane, BorderLayout.CENTER);
-
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
     }
 
     private void updateStatsArea() {
         statsArea.setText(owner.getStats());
+        yearLabel = new JLabel("YEAR: " + owner.getYear());
     }
 
     private void saveData() {

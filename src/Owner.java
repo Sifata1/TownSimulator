@@ -139,7 +139,7 @@ public class Owner implements Serializable {
     }
 
     public String getStats() {
-        return "Name: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage;
+        return "Year: " + year + "\n\nOwner Stats: \nName: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\n\nTown Stats:\n" + town.getStats();
     }
 
 
