@@ -56,7 +56,7 @@ public class OwnerData implements Serializable {
         return deathAge;
     }
 
-    // Save owner data to a file
+
     public void save(String filename) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
             outputStream.writeObject(this);
@@ -66,7 +66,7 @@ public class OwnerData implements Serializable {
         }
     }
 
-    // Load owner data from a file
+
     public static OwnerData load(String filename) {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
             OwnerData ownerData = (OwnerData) inputStream.readObject();

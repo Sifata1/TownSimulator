@@ -31,7 +31,6 @@ public class TownData implements Serializable {
         return deathCount;
     }
 
-    // Save town data to a file
     public void save(String filename) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
             outputStream.writeObject(this);
@@ -41,7 +40,6 @@ public class TownData implements Serializable {
         }
     }
 
-    // Load town data from a file
     public static TownData load(String filename) {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
             TownData townData = (TownData) inputStream.readObject();

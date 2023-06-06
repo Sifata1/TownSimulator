@@ -13,24 +13,48 @@ public class GameScreen {
     private JButton progressYearButton;
     private Owner owner;
     private JButton sellLandButton;
-    private JButton townButton;
     private JButton saveButton;
     private JButton loadButton;
     private JLabel yearLabel;
+    private ImageIcon townImage;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
         frame = new JFrame("Town");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(800, 600));
+        frame.setPreferredSize(new Dimension(1000, 600));
         frame.getContentPane().setBackground(new Color(8, 40, 94));
+        frame.setLayout(new BorderLayout());
 
-        // Year label
         yearLabel = new JLabel("YEAR: " + owner.getYear());
         yearLabel.setFont(new Font("Arial", Font.BOLD, 24));
         yearLabel.setForeground(Color.WHITE);
         yearLabel.setHorizontalAlignment(SwingConstants.CENTER);
         frame.add(yearLabel, BorderLayout.NORTH);
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+        frame.add(contentPanel, BorderLayout.CENTER);
+
+        JPanel statsPanel = new JPanel();
+        statsPanel.setLayout(new BorderLayout());
+        statsPanel.setBackground(new Color(8, 40, 94));
+
+        statsArea = new JTextArea(owner.getStats());
+        statsArea.setEditable(false);
+        statsArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        statsArea.setForeground(Color.WHITE);
+        statsArea.setBackground(new Color(8, 40, 94));
+
+        JScrollPane scrollPane = new JScrollPane(statsArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        statsPanel.add(scrollPane, BorderLayout.CENTER);
+
+        townImage = new ImageIcon(getClass().getResource("aPmMCS-town-clipart-png-file.png"));
+        JLabel townLabel = new JLabel(townImage);
+        statsPanel.add(townLabel, BorderLayout.EAST);
+
+        contentPanel.add(statsPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(3, 3, 10, 10));
@@ -42,7 +66,6 @@ public class GameScreen {
         buyLandButton = createButton("Buy Land", new Font("Arial", Font.BOLD, 18), Color.WHITE);
         returnToMainButton = createButton("Return to Main Screen", new Font("Arial", Font.BOLD, 16), Color.WHITE);
         sellLandButton = createButton("Sell Land", new Font("Arial", Font.BOLD, 18), Color.WHITE);
-        townButton = createButton("Town", new Font("Arial", Font.BOLD, 18), Color.WHITE);
         saveButton = createButton("Save", new Font("Arial", Font.BOLD, 18), Color.WHITE);
         loadButton = createButton("Load", new Font("Arial", Font.BOLD, 18), Color.WHITE);
         progressYearButton = createButton("Progress Year", new Font("Arial", Font.BOLD, 18), Color.WHITE);
@@ -53,21 +76,10 @@ public class GameScreen {
         buttonPanel.add(buyLandButton);
         buttonPanel.add(sellLandButton);
         buttonPanel.add(returnToMainButton);
-        buttonPanel.add(townButton);
         buttonPanel.add(saveButton);
         buttonPanel.add(loadButton);
 
-        frame.add(buttonPanel, BorderLayout.CENTER);
-
-        statsArea = new JTextArea(owner.getStats());
-        statsArea.setEditable(false);
-        statsArea.setFont(new Font("Arial", Font.PLAIN, 14));
-        statsArea.setForeground(Color.WHITE);
-        statsArea.setBackground(new Color(8, 40, 94));
-
-        JScrollPane scrollPane = new JScrollPane(statsArea);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        frame.add(scrollPane, BorderLayout.SOUTH);
+        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -155,7 +167,7 @@ public class GameScreen {
         returnToMainButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new MainSc();
+                new MainScreen();
             }
         });
 
@@ -188,7 +200,7 @@ public class GameScreen {
 
     private void updateStatsArea() {
         statsArea.setText(owner.getStats());
-        yearLabel = new JLabel("YEAR: " + owner.getYear());
+        yearLabel.setText("YEAR: " + owner.getYear());
     }
 
     private void saveData() {
@@ -200,8 +212,7 @@ public class GameScreen {
             fileOut.close();
             JOptionPane.showMessageDialog(frame, "Game data saved successfully.");
         } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "Failed to save game data.");
+            JOptionPane.showMessageDialog(frame, "Error occurred while saving game data.");
         }
     }
 
@@ -214,8 +225,7 @@ public class GameScreen {
             fileIn.close();
             JOptionPane.showMessageDialog(frame, "Game data loaded successfully.");
         } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "Failed to load game data.");
+            JOptionPane.showMessageDialog(frame, "Error occurred while loading game data.");
         }
     }
 }

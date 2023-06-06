@@ -26,7 +26,7 @@ public class Owner implements Serializable {
         town = new Town(1000);
         age = 25;
         year = 2000;
-        deathAge = (int) ((Math.random()*70) + 30);
+        deathAge = (int) ((Math.random()*50) + 26);
     }
 
 
@@ -49,6 +49,8 @@ public class Owner implements Serializable {
         age++;
         year++;
         numTimesWorkedInOneYear = 0;
+        double increase = town.getPopulation()/10;
+        town.setValue((int) (town.getValue() + increase));
     }
 
     public boolean die() {
@@ -112,7 +114,7 @@ public class Owner implements Serializable {
     public boolean canGamble(int amount) {
         int bal = balance;
         if (amount > balance) {
-            return false; // return -1 to indicate that the user does not have enough balance to gamble
+            return false;
         }
         return true;
     }
@@ -139,7 +141,7 @@ public class Owner implements Serializable {
     }
 
     public String getStats() {
-        return "Year: " + year + "\n\nOwner Stats: \nName: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\n\nTown Stats:\n" + town.getStats();
+        return "Owner Stats: \nName: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\n\nTown Stats:\n" + town.getStats();
     }
 
 

@@ -8,14 +8,6 @@ public class Town implements Serializable {
     private int sizeInMiles;
     private String stats;
 
-    public int getDeathCount() {
-        return deathCount;
-    }
-
-    public int getPopulation() {
-        return population;
-    }
-
     private int value;
     private int population;
     private int deathCount;
@@ -33,7 +25,7 @@ public class Town implements Serializable {
     }
 
     public void increasePopulation() {
-        int increase = (int) ((Math.random()*200) + 55);
+        int increase = (int) ((Math.random()*250) + 50);
         population += increase;
     }
 
@@ -98,5 +90,13 @@ public class Town implements Serializable {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public int getDeathCount() {
+        return deathCount;
+    }
+
+    public int getPopulation() {
+        return population;
     }
 }
