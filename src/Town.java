@@ -1,6 +1,7 @@
 import java.util.Random;
+import java.io.Serializable;
 
-public class Town {
+public class Town implements Serializable {
     private int revenue;
     private int costs;
     private int profit;

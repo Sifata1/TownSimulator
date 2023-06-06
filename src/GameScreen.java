@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class GameScreen {
     private JFrame frame;
@@ -13,6 +14,8 @@ public class GameScreen {
     private Owner owner;
     private JButton sellLandButton;
     private JButton townButton;
+    private JButton saveButton;
+    private JButton loadButton;
 
     public GameScreen(Owner owner) {
         this.owner = owner;
@@ -30,6 +33,8 @@ public class GameScreen {
         returnToMainButton = new JButton("Return to Main Screen");
         sellLandButton = new JButton("Sell Land");
         townButton = new JButton("Town");
+        saveButton = new JButton("Save");
+        loadButton = new JButton("Load");
 
         workButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -95,7 +100,6 @@ public class GameScreen {
                     }
                 }
             }
-
         });
 
         returnToMainButton.addActionListener(new ActionListener() {
@@ -105,12 +109,6 @@ public class GameScreen {
             }
         });
 
-        townButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new TownGUI();
-            }
-        });
 
         progressYearButton = new JButton("Progress Year");
         progressYearButton.addActionListener(new ActionListener() {
@@ -126,13 +124,27 @@ public class GameScreen {
             }
         });
 
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                saveData();
+            }
+        });
+
+        loadButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                loadData();
+                updateStatsArea();
+            }
+        });
+
         buttonPanel.add(progressYearButton);
         buttonPanel.add(workButton);
         buttonPanel.add(gambleButton);
         buttonPanel.add(buyLandButton);
         buttonPanel.add(sellLandButton);
+        buttonPanel.add(saveButton);
+        buttonPanel.add(loadButton);
         buttonPanel.add(returnToMainButton);
-        buttonPanel.add(townButton);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -151,5 +163,33 @@ public class GameScreen {
 
     private void updateStatsArea() {
         statsArea.setText(owner.getStats());
+    }
+
+    private void saveData() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("game_data.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(owner);
+            out.close();
+            fileOut.close();
+            JOptionPane.showMessageDialog(frame, "Game data saved successfully.");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "Failed to save game data.");
+        }
+    }
+
+    private void loadData() {
+        try {
+            FileInputStream fileIn = new FileInputStream("game_data.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            owner = (Owner) in.readObject();
+            in.close();
+            fileIn.close();
+            JOptionPane.showMessageDialog(frame, "Game data loaded successfully.");
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "Failed to load game data.");
+        }
     }
 }

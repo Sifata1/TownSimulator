@@ -1,4 +1,6 @@
-public class Owner {
+import java.io.Serializable;
+
+public class Owner implements Serializable {
     private int balance;
     private String name;
     private boolean employed;
@@ -7,6 +9,11 @@ public class Owner {
     private Town town;
     private int age;
     private int year;
+
+    public int getYear() {
+        return year;
+    }
+
     private int deathAge;
 
 
@@ -24,14 +31,14 @@ public class Owner {
 
 
     public String work() {
-            if (numTimesWorkedInOneYear > 4) {
-                return "Take a break from working!";
-            } else {
-                int n = (int) (Math.random() * 5) + 1;
-                balance += n * wage;
-                numTimesWorkedInOneYear++;
-                return "You worked for " + n + " hours and earned $" + (n * wage) + ".";
-            }
+        if (numTimesWorkedInOneYear > 4) {
+            return "Take a break from working!";
+        } else {
+            int n = (int) (Math.random() * 5) + 1;
+            balance += n * wage;
+            numTimesWorkedInOneYear++;
+            return "You worked for " + n + " hours and earned $" + (n * wage) + ".";
+        }
     }
 
     public int getBalance() {
@@ -132,7 +139,7 @@ public class Owner {
     }
 
     public String getStats() {
-        return "Year: " + year + "\n\nOwner Stats: \nName: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage + "\n\nTown Stats:\n" + town.getStats();
+        return "Name: " + name + " \nAge: "+ age + "\nBalance: $" + balance + "\nEmployed: " + employed + "\nWage: $" + wage;
     }
 
 
